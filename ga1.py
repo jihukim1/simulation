@@ -23,7 +23,7 @@ def distance(pointc, point): ##이동거리
 
 with open('data/Triplist_original.pickle','rb') as f:
     Triplist = pickle.load(f)    
-Triplist = Triplist[:]
+Triplist = Triplist[:10]
 
 ############################################################
 

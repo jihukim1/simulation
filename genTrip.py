@@ -56,7 +56,7 @@ def getposition(): #random position
         global min_dist
         global max_dist
         dist = min_dist + random.random()*(max_dist-min_dist)
-        theta = random.uniform(0,1)*2*math.pi
+        theta = random.uniform(0,2*math.pi)
             
         disty = (dist/2 * math.sin(theta)) #y range
         distx = (dist/2 * math.cos(theta)) #x range
@@ -76,23 +76,25 @@ def getposition(): #random position
     return (x0,y0,x1,y1)
 
 def getposition_1():
-    global centerpointO
-    global centerpointD
+    global centerpointlist
     global walking_timelimit
+    global min_dist
     global v_walk
+    global network_size
+    global network_size_y
     while(1):
+        sigma = 0.7
         max_dist = walking_timelimit*v_walk #from centerpoint
-        dist =  abs(random.gauss(0,1))*max_dist
-        theta = random.uniform(0,1)*2*math.pi
-        x0 = centerpointO[0] + dist*math.cos(theta)
-        y0 = centerpointO[1] + dist*math.sin(theta)
+        (centerpointO, centerpointD) = random.sample(centerpointlist,2)
         
-        dist =  abs(random.gauss(0,1))*max_dist
-        theta = random.uniform(0,1)*2*math.pi
-        x1 = centerpointD[0] + dist*math.cos(theta)
-        y1 = centerpointD[1] + dist*math.sin(theta)
+        x0 = centerpointO[0] + random.gauss(0,sigma)*max_dist
+        y0 = centerpointO[1] + random.gauss(0,sigma)*max_dist
+        
+        x1 = centerpointD[0] + random.gauss(0,sigma)*max_dist
+        y1 = centerpointD[1] + random.gauss(0,sigma)*max_dist
         if min([x0,x1,y0,y1])<0 or max([x0,x1])>network_size or max([y0,y1])>network_size_y:
             pass
+        elif distance((x0,y0), (x1,y1)) < min_dist: pass
         else: break
     return (x0,y0,x1,y1)
 
@@ -101,45 +103,26 @@ def getposition_2():
     global walking_timelimit
     global v_walk
     global min_dist
+    global network_size
+    global network_size_y
     while(1):
+        sigma = 0.7
         max_dist = walking_timelimit*v_walk #from centerpoint
-        dist = abs(random.gauss(0,1))*max_dist
-        theta = random.uniform(0,1)*2*math.pi
-        x0 = centerpointO[0] + dist*math.cos(theta)
-        y0 = centerpointO[1] + dist*math.sin(theta)
         
-        max_dist = (network_size**2 + network_size_y**2)**(1/2)/2
-        dist = min_dist + random.random()*(max_dist-min_dist)
-        theta = abs(np.random.uniform())*2*math.pi
-        x1 = centerpointO[0] + dist*math.cos(theta)
-        y1 = centerpointO[1] + dist*math.sin(theta)
+        x0 = centerpointO[0] + random.gauss(0,sigma)*max_dist
+        y0 = centerpointO[1] + random.gauss(0,sigma)*max_dist
+        
+        x1 = random.uniform(0,network_size)
+        y1 = random.uniform(0,network_size_y)
         if min([x0,x1,y0,y1])<0 or max([x0,x1])>network_size or max([y0,y1])>network_size_y:
                 pass
+        elif distance((x0,y0), (x1,y1)) < min_dist: pass
         else: break
     
     return (x0,y0,x1,y1)
 
 def getposition_3():
-    global centerpointD
-    global walking_timelimit
-    global v_walk
-    global min_dist
-    while(1):
-        max_dist = walking_timelimit*v_walk #from centerpoint
-        dist = abs(random.gauss(0,1))*max_dist
-        theta = random.uniform(0,1)*2*math.pi
-        x1 = centerpointD[0] + dist*math.cos(theta)
-        y1 = centerpointD[1] + dist*math.sin(theta)
-        
-        max_dist = (network_size**2 + network_size_y**2)**(1/2)/2
-        dist = min_dist + random.random()*(max_dist-min_dist)
-        theta = abs(np.random.uniform())*2*math.pi
-        x0 = centerpointD[0] + dist*math.cos(theta)
-        y0 = centerpointD[1] + dist*math.sin(theta)
-        if min([x0,x1,y0,y1])<0 or max([x0,x1])>network_size or max([y0,y1])>network_size_y:
-                pass
-        else: break
-    
+    (x1,y1,x0,y0) = getposition_2()
     return (x0,y0,x1,y1)
 
 def getposition_4(): #random position
@@ -147,23 +130,19 @@ def getposition_4(): #random position
         global dist
         global min_dist
         global max_dist
-        dist = min_dist + random.random()*(max_dist-min_dist)
-        theta = random.uniform(0,1)*math.pi - math.pi/2
-            
-        disty = (dist/2 * math.sin(theta)) #y range
-        distx = (dist/2 * math.cos(theta)) #x range
-    #    if disty > network_size_y/2:
-    #        disty = network_size_y/2
-    #    if distx > network_size/2:
-    #        distx = network_size/2
-        rangey = (disty,network_size_y-disty)
-        rangex = (distx,network_size-distx)  
-        midpoint = (np.random.uniform(rangex[0], rangex[1]),np.random.uniform(rangey[0], rangey[1]))
+        global network_size
+        global network_size_y
+        sigma = 1
+        
+        x = [random.uniform(0,network_size),random.uniform(0,network_size)]
+        x.sort()
+        y = [network_size_y/2 + random.gauss(0,sigma)*network_size_y/2,network_size_y/2 + random.gauss(0,sigma)*network_size_y/2]
         
         [x0,x1,y0,y1] = [midpoint[0]-distx, midpoint[0]+distx, midpoint[1]-disty, midpoint[1]+disty]
         
         if min([x0,x1,y0,y1])<0 or max([x0,x1])>network_size or max([y0,y1])>network_size_y:
             pass
+#        elif abs(theta) > math.pi/2 : pass
         else: break
     return (x0,y0,x1,y1)
     
@@ -204,8 +183,11 @@ if demand_scenario == 0:
     
 #(1) concentrated O/D
 elif demand_scenario == 1:
-    centerpointO = (network_size*1/4,network_size_y/2)
-    centerpointD = (network_size*3/4,network_size_y/2)
+    centerpoint1 = (network_size*1/4,network_size_y*1/4)
+    centerpoint2 = (network_size*3/4,network_size_y*1/4)
+    centerpoint3 = (network_size*1/4,network_size_y*3/4)
+    centerpoint4 = (network_size*3/4,network_size_y*3/4)
+    centerpointlist = [centerpoint1,centerpoint2,centerpoint3,centerpoint4]
     
     Triplist = []
     for i in range(demand):

@@ -21,7 +21,7 @@ wd = os.getcwd() + "/"
 
 #simulation
 totaltime = 1 * 60 #n hours (min)
-demand = 5  #total demand size
+demand = 10  #total demand size
 numofveh = 1
 vehTT = 60#min
 v_avg = 45 *1000 /60 #(km/h) --> m/min
