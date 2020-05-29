@@ -1,0 +1,20 @@
+/*********************************************
+ * OPL 12.9.0.0 Data
+ * Author: JIHU
+ * Creation Date: 2020. 5. 26. at ¿ÀÈÄ 8:06:41
+ *********************************************/
+
+SheetConnection initialize("initialize.xlsx");
+//SheetConnection time_sheet("tij_list.xlsx");
+SheetConnection node_sheet("nodelist.xlsx");
+ 
+n from SheetRead(initialize, "'Sheet1'!A2");
+cap from SheetRead(initialize, "'Sheet1'!B2");
+v_avg from SheetRead(initialize, "'Sheet1'!C2");
+numofveh from SheetRead(initialize, "'Sheet1'!D2");
+
+//t from SheetRead(time_sheet,"'Sheet1'!A2:A91205");
+//t from SheetRead(time_sheet,"'Sheet1'!A2:A485"); // (2*n+2)^2 +1
+
+nodex from SheetRead(node_sheet,"'Sheet1'!A2:A303");
+nodey from SheetRead(node_sheet,"'Sheet1'!B2:B303"); //(2*n+2) +1

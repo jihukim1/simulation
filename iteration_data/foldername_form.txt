@@ -1,0 +1,2 @@
+savedfile: Routelist / Triplist / Deliverylist / Triplist_original
+foldername: DemandScenarioType_Veh#_DemandSize
