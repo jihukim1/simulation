@@ -10,7 +10,7 @@ RUN pip install --trusted-host pypi.python.org -r requirement.txt
 
 EXPOSE 130
 
-ENV NAME SJCHOI
+ENV NAME JIHU
 
 CMD ["python", "gq1.py"]
 #CMD ["tensorboard", "--logdir=log" ,"--bind_all" ,"--samples_per_plugin=images=100"]
