@@ -1,7 +1,9 @@
 #Dockerfile
 #without an file extension
 
-FROM python
+#FROM sjchoi:default
+FROM jihu:default
+
 WORKDIR /simulation
 
 COPY . /simulation
@@ -12,5 +14,5 @@ EXPOSE 130
 
 ENV NAME JIHU
 
-CMD ["python", "gq1.py"]
-#CMD ["tensorboard", "--logdir=log" ,"--bind_all" ,"--samples_per_plugin=images=100"]
+# CMD ["python", "ga1.py"]
+CMD ["bash"]

@@ -1,0 +1,3 @@
+pyeasyga
+numpy
+pandas

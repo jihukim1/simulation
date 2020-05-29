@@ -1,9 +1,0 @@
-random
-pickle
-os
-math
-time
-pyeasyga
-itertools
-numpy
-pandas
